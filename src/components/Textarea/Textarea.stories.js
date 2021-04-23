@@ -5,10 +5,19 @@ import { View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
 import Textarea from './Textarea';
-
+function Edit() {
+  const [text, setText] = React.useState('');
+  return (
+    <Textarea
+      phrase={text}
+      editable={true}
+      onChange={input => setText(input)}
+      placeholder={"Enter here"}
+    />
+  );
+}
 storiesOf('Textarea', module)
-  .addDecorator(story => <View>{story()}</View>)
-  .add('Textarea phrase', () => <Textarea label= {'Seen phrases:'} value={"Roa ambin’ny folo"}/>)
-  .add('Textarea large phrase', () => <Textarea label= {'Seen phrases:'} value={"Roa ambin’ny folo ambin'ny zato sy arivo sy dimy alina sy telo hetsy"}/>)
-  .add('Textarea input', () => <Textarea label= {'The phrase in English:'} placeholder={"Enter here"}/>)
-  .add('Textarea large input', () => <Textarea label= {'The phrase in English:'} placeholder={"Enter here for example: Zato sy arivo ..."}/>)
+  .addDecorator(story => <View style={{padding: 23}}>{story()}</View>)
+  .add('Textarea phrase', () => <Textarea editable={false} phrase={"Roa ambin’ny folo"}/>)
+  .add('Textarea large phrase', () => <Textarea editable={false} phrase={"Roa ambin’ny folo ambin'ny zato sy arivo sy dimy alina sy telo hetsy"}/>)
+  .add('Textarea input', () => <Edit />)

@@ -1,62 +1,46 @@
 // components/Task.js
 import * as React from 'react';
-import {useState} from 'react';
 import { SafeAreaView, View, StyleSheet,TextInput } from 'react-native';
 // import { styles } from '../constants/globalStyles';
 
-export default function Example({label, placeholder, value}) {
-  const [inputText, setInputText] = useState('')
-
-  const enterText = (text) => {
-    setInputText(text)
-  }
+export default function Example({phrase,editable,onChange = () => null, placeholder}) {
 
   return (
-    <SafeAreaView >
-      {/* The Textareas from stories are nendered differently 
-      and they have different props*/} 
-      <View style={styles.container}>
-        {value ?
-        <TextInput
-          style={styles.input}
-          placeholder={placeholder}
-          value={value}
-          multiline = {true}
-          // ways of disabling the input
-          editable={false}
-          selectTextOnFocus={false}
-        /> 
-        : 
-        <TextInput
-          style={styles.input}
-          placeholder={placeholder}
-          onChangeText={text => enterText(text)}
-          defaultValue={inputText}
-          multiline = {true}
-        />
-        }
-        </View>
+    <SafeAreaView style={styles.container}>
+      <TextInput
+        style={editable ? styles.input : styles.textarea}
+        value={phrase}
+        editable={editable}
+        onChangeText={onChange}
+        multiline={true}
+        placeholder={placeholder}
+      />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
     container: {
-        padding: 23,
-    },
-    input: {
-        backgroundColor: '#FFFFFF',
-        fontSize: 20,
-        paddingLeft: 28,
-        paddingRight: 28,
-        paddingTop: 41,
-        paddingBottom: 35,
-        borderRadius: 3,
-        textAlign: 'center',
-        borderWidth: 1,
-        borderColor: '#E5E5E5',
-        lineHeight: 24,
-        color: '#111827',
-    },
+    height: 100,
+    marginVertical: 0,
+    marginHorizontal: 'auto',
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+  },
+  input: {
+    color: '#111827',
+    lineHeight: 24.3,
+  },
+  textarea: {
+    color: '#111827',
+    maxWidth: 360,
+    marginHorizontal: 'auto',
+    fontSize: 20,
+    lineHeight: 24.3,
+  },
 
 })
