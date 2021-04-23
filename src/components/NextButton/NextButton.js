@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableHighlight, StyleSheet} from 'react-native';
 
-export default function NextButton({ onPress, children, isDisabled }) {
+export default function Button({ onPress, children, isDisabled }) {
   return <TouchableHighlight disabled={isDisabled} style={isDisabled ? styles.disabledButton : styles.button} underlayColor="#06D440" onPress={onPress}>
             {children}
         </TouchableHighlight>;
 }
 
-NextButton.defaultProps = {
+Button.defaultProps = {
   children: null,
   onPress: () => {},
 };
 
-NextButton.propTypes = {
+Button.propTypes = {
   children: PropTypes.node,
   onPress: PropTypes.func,
 };
