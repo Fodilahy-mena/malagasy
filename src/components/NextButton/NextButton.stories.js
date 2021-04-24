@@ -8,7 +8,7 @@ import Button from './NextButton';
 storiesOf('Buttons', module)
   .addDecorator(story => <View style={{padding: 23}}>{story()}</View>)
   .add('Next button', () => (
-    <Button isSisabled={false} onPress={action('clicked-text')}>
+    <Button isDisabled={false} onPress={action('clicked-text')}>
       <Text style={
         {color: '#FFFFFF', fontFamily: 'Inter',
         fontStyle: 'normal',
@@ -19,7 +19,7 @@ storiesOf('Buttons', module)
     </Button>
   ))
   .add('Next button long text', () => (
-    <Button isSisabled={false} onPress={action('clicked-text')}>
+    <Button isDisabled={false} onPress={action('clicked-text')}>
       <Text style={
         {color: '#FFFFFF', fontFamily: 'Inter',
         fontStyle: 'normal',
