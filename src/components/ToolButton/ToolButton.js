@@ -1,23 +1,14 @@
-import React from 'react';
+import React, {Children} from 'react';
 import PropTypes from 'prop-types';
 import {TouchableHighlight, StyleSheet, View} from 'react-native';
-import {Icon} from 'react-native-elements';
-import AddIcon from './assets/add.svg';
-export default function ToolButton({
-  onPress,
-  color,
-  iconType,
-  iconName,
-  children,
-}) {
+
+export default function ToolButton({onPress, children}) {
   return (
     <TouchableHighlight
       style={styles.container}
       underlayColor="#E5E5E5"
       onPress={onPress}>
-      <View style={styles.button}>
-        <AddIcon width={48} height={48} fill={color} />
-      </View>
+      <View style={styles.button}>{children}</View>
     </TouchableHighlight>
   );
 }
