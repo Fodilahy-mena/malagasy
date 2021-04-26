@@ -8,6 +8,7 @@ function loadStories() {
   require('../src/components/Example/Example.stories');
   require('../src/components/NextButton/NextButton.stories');
   require('../src/components/Textarea/Textarea.stories');
+  require('../src/components/ToolButton/ToolButton.stories');
   require('./stories/Button/Button.stories');
   require('./stories/Welcome/Welcome.stories');
 }
@@ -17,6 +18,7 @@ const stories = [
   '../src/components/Example/Example.stories',
   '../src/components/NextButton/NextButton.stories',
   '../src/components/Textarea/Textarea.stories',
+  '../src/components/ToolButton/ToolButton.stories',
   './stories/Button/Button.stories',
   './stories/Welcome/Welcome.stories',
 ];
