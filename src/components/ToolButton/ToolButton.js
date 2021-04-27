@@ -1,4 +1,4 @@
-import React, {Children} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {TouchableHighlight, StyleSheet, View} from 'react-native';
 
@@ -14,10 +14,12 @@ export default function ToolButton({onPress, children}) {
 }
 
 ToolButton.defaultProps = {
+  children: null,
   onPress: () => {},
 };
 
 ToolButton.propTypes = {
+  children: PropTypes.node,
   onPress: PropTypes.func,
 };
 
@@ -30,16 +32,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     width: 'auto',
     alignSelf: 'center',
-    // padding: 13,
     borderRadius: 100,
     backgroundColor: '#06B6D4',
     alignItems: 'center',
   },
   button: {
     margin: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    textAlignVertical: 'center',
   },
 });

@@ -1,5 +1,4 @@
 import {action} from '@storybook/addon-actions';
-import {text} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react-native';
 import React from 'react';
 import {View} from 'react-native';
@@ -13,27 +12,27 @@ import ModeIcon from './assets/mode.svg';
 storiesOf('Tool Button', module)
   .addDecorator(story => <View style={{padding: 23}}>{story()}</View>)
   .add('Add', () => (
-    <ToolButton>
-      <AddIcon width={48} height={48} fill="#FFFFFF" />
+    <ToolButton onPress={action('clicked-add-button')}>
+      <AddIcon width={24} height={24} fill="#FFFFFF" />
     </ToolButton>
   ))
   .add('Check', () => (
-    <ToolButton>
-      <CheckIcon width={48} height={48} fill="#FFFFFF" />
+    <ToolButton onPress={action('clicked-check-button')}>
+      <CheckIcon width={24} height={24} fill="#FFFFFF" />
     </ToolButton>
   ))
   .add('Check all', () => (
-    <ToolButton>
-      <CheckAllIcon width={48} height={48} fill="#FFFFFF" />
+    <ToolButton onPress={action('clicked-check-all-button')}>
+      <CheckAllIcon width={24} height={24} fill="#FFFFFF" />
     </ToolButton>
   ))
   .add('Back', () => (
-    <ToolButton>
-      <BackIcon width={48} height={48} fill="#FFFFFF" />
+    <ToolButton onPress={action('clicked-back-button')}>
+      <BackIcon width={24} height={24} fill="#FFFFFF" />
     </ToolButton>
   ))
   .add('Mode', () => (
-    <ToolButton>
-      <ModeIcon width={48} height={48} fill="#FFFFFF" />
+    <ToolButton onPress={action('clicked-mode-button')}>
+      <ModeIcon width={24} height={24} fill="#FFFFFF" />
     </ToolButton>
   ));
