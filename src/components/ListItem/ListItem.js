@@ -9,6 +9,8 @@ import {
   SectionList,
 } from 'react-native';
 
+export const Separator = () => <View style={styles.separator} />;
+
 export default function ListItem({data, text, iconName, iconType, color}) {
   function onRowPressLearn() {
     console.log('Pressed to learn screen');
@@ -39,6 +41,7 @@ export default function ListItem({data, text, iconName, iconType, color}) {
           </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
+        ItemSeparatorComponent={() => <Separator />}
       />
     </SafeAreaView>
   );
@@ -61,5 +64,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#111827',
+  },
+  separator: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#E5E5E5',
   },
 });
