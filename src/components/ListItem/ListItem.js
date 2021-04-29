@@ -11,28 +11,25 @@ import {
 
 export const Separator = () => <View style={styles.separator} />;
 
-export default function ListItem({data, text, iconName, iconType, color}) {
-  function onRowPressLearn() {
-    console.log('Pressed to learn screen');
-  }
-
-  function onRowPressAnswer() {
-    console.log('Pressed to check the answer');
-  }
-
+export default function ListItem({
+  data,
+  text,
+  iconName,
+  iconType,
+  color,
+  onPress,
+}) {
   return (
     <SafeAreaView>
       <SectionList
         sections={[{data: data}]}
         renderItem={({item}) => (
-          <TouchableOpacity
-            style={styles.item}
-            onPress={text === 'Learn' ? onRowPressLearn : onRowPressAnswer}>
+          <TouchableOpacity style={styles.item} onPress={onPress}>
             <View>
               <Text style={styles.text}>{item.name}</Text>
             </View>
             <ActionButton
-              onPress={text === 'Learn' ? onRowPressLearn : onRowPressAnswer}
+              onPress={onPress}
               text={text}
               color={color}
               iconType={iconType}
