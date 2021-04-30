@@ -12,24 +12,34 @@ import {
 export const Separator = () => <View style={styles.separator} />;
 
 export default function ListItem({
+  navigation,
   data,
   text,
   iconName,
   iconType,
   color,
-  onPress,
 }) {
   return (
     <SafeAreaView>
       <SectionList
         sections={[{data: data}]}
         renderItem={({item}) => (
-          <TouchableOpacity style={styles.item} onPress={onPress}>
+          <TouchableOpacity
+            style={styles.item}
+            onPress={item => {
+              navigation.navigate('Learn', {
+                item: item,
+              });
+            }}>
             <View>
               <Text style={styles.text}>{item.name}</Text>
             </View>
             <ActionButton
-              onPress={onPress}
+              onPress={item => {
+                navigation.navigate('Learn', {
+                  item: item,
+                });
+              }}
               text={text}
               color={color}
               iconType={iconType}

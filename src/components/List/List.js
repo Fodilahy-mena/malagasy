@@ -2,7 +2,14 @@ import React from 'react';
 import ListItem from '../ListItem/ListItem';
 import {View, SafeAreaView, StyleSheet} from 'react-native';
 
-export default function List({data, text, iconName, iconType, color, onPress}) {
+export default function List({
+  data,
+  text,
+  iconName,
+  iconType,
+  color,
+  navigation,
+}) {
   return (
     <SafeAreaView>
       <View style={styles.list}>
@@ -13,7 +20,7 @@ export default function List({data, text, iconName, iconType, color, onPress}) {
           color={color}
           iconType={iconType}
           iconName={iconName}
-          onPress={onPress}
+          navigation={navigation}
         />
       </View>
     </SafeAreaView>
