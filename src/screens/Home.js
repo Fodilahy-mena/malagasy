@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {action} from '@storybook/addon-actions';
+import {useDispatch} from 'react-redux';
 import {
   View,
   StyleSheet,
@@ -10,6 +11,7 @@ import {
 // import AsyncStorage from '@react-native-community/async-storage';
 import List from '../components/List/List';
 import list from '../components/ListItem/list';
+import dataCategories from '../data/categories.json';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
 
@@ -40,7 +42,14 @@ function Switcher() {
     />
   );
 }
-export default ({navigation}) => {
+export default ({navigation, state, setCategories, categories}) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setCategories(dataCategories.categories));
+    // console.log(state);
+  }, []);
+  console.log('cat', categories && categories.map(cat => cat.map(c => c.id)));
   //   if (loading) {
   //     return (
   //       <SafeAreaView>
@@ -88,7 +97,7 @@ export default ({navigation}) => {
             <SectionHeading text="Select a category:" />
           </View>
           <List
-            data={list}
+            data={categories}
             text={'Learn'}
             color="#06B6D4"
             iconType="material-community"

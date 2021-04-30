@@ -23,7 +23,7 @@ export default function ListItem({
     <SafeAreaView>
       <SectionList
         sections={[{data: data}]}
-        renderItem={({item}) => (
+        renderItem={({item}, index) => (
           <TouchableOpacity
             style={styles.item}
             onPress={item => {
@@ -36,6 +36,7 @@ export default function ListItem({
             </View>
             <ActionButton
               onPress={item => {
+                console.log('item', item);
                 navigation.navigate('Learn', {
                   item: item,
                 });
