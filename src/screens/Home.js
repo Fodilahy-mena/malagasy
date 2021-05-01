@@ -7,11 +7,8 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-// import {createStackNavigator} from '@react-navigation/stack';
-// import AsyncStorage from '@react-native-community/async-storage';
+
 import List from '../components/List/List';
-import list from '../components/ListItem/list';
-import dataCategories from '../data/categories.json';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
 
@@ -20,7 +17,6 @@ import LanguageSwitcher from '../components/LanguageSwitcher/LanguageSwitcher';
 import AddIcon from '../components/ToolButton/assets/add.svg';
 import CheckIcon from '../components/ToolButton/assets/check.svg';
 import CheckAllIcon from '../components/ToolButton/assets/check-all.svg';
-import BackIcon from '../components/ToolButton/assets/back.svg';
 import ModeIcon from '../components/ToolButton/assets/mode.svg';
 
 function Switcher() {
@@ -49,12 +45,6 @@ export default ({navigation, state, getCategories, categories}) => {
   useEffect(() => {
     getCategories();
   }, []);
-  // console.log('cat', categories && categories);
-  const getAllCategoriesNames = lang => {
-    console.log(categories && categories.map(cat => cat.id));
-  };
-
-  getAllCategoriesNames(LANGUAGE_NAMES.MG);
 
   return (
     <SafeAreaView style={{flex: 1}}>
