@@ -14,7 +14,7 @@ export default function ActionButton({
     <TouchableHighlight
       style={styles.container}
       underlayColor="transparent"
-      onPress={onPress}>
+      onRowPress={onPress}>
       <View style={styles.button}>
         <Text style={(styles.text, {color: color})}>{text}</Text>
         <Icon

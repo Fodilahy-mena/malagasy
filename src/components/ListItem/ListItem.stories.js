@@ -16,6 +16,7 @@ storiesOf('List Item', module)
       color="#06B6D4"
       iconType="material-community"
       iconName="arrow-right"
+      onPress={() => console.log('Pressed to learn screen')}
     />
   ))
   .add('Item answer', () => (
@@ -25,5 +26,6 @@ storiesOf('List Item', module)
       color="#06B6D4"
       iconType="material-community"
       iconName="arrow-right"
+      onPress={() => console.log('Pressed to check the answer')}
     />
   ));

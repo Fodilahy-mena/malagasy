@@ -11,15 +11,15 @@ import {
 
 export const Separator = () => <View style={styles.separator} />;
 
-export default function ListItem({data, text, iconName, iconType, color}) {
-  function onRowPressLearn() {
-    console.log('Pressed to learn screen');
-  }
-
-  function onRowPressAnswer() {
-    console.log('Pressed to check the answer');
-  }
-
+export default function ListItem({
+  navigation,
+  data,
+  text,
+  iconName,
+  iconType,
+  color,
+  lang,
+}) {
   return (
     <SafeAreaView>
       <SectionList
@@ -27,12 +27,26 @@ export default function ListItem({data, text, iconName, iconType, color}) {
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={text === 'Learn' ? onRowPressLearn : onRowPressAnswer}>
+            onPress={item => {
+              navigation.navigate('Learn', {
+                item: item,
+              });
+            }}>
             <View>
-              <Text style={styles.text}>{item.name}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
+                style={styles.text}>
+                {item.name[lang]}
+              </Text>
             </View>
             <ActionButton
-              onPress={text === 'Learn' ? onRowPressLearn : onRowPressAnswer}
+              onPress={item => {
+                console.log('item', item);
+                navigation.navigate('Learn', {
+                  item: item,
+                });
+              }}
               text={text}
               color={color}
               iconType={iconType}
@@ -64,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#111827',
+    maxWidth: 249,
   },
   separator: {
     flex: 1,
