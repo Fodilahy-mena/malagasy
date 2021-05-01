@@ -1,15 +1,16 @@
 import {connect} from 'react-redux';
 import Learning from '../screens/Learning';
-import {getCategories} from '../actions';
+import {getPhrases} from '../actions';
 
 function mapStateToProps(state) {
   return {
     state,
     categories: state.categories,
+    phrases: state.phrases,
   };
 }
 const mapDispatchToProps = {
-  getCategories,
+  getPhrases,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Learning);

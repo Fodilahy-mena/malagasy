@@ -38,12 +38,21 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({route, navigation, state, getCategories, categories}) => {
+export default ({
+  route,
+  navigation,
+  state,
+  categories,
+  getPhrases,
+  phrases,
+}) => {
   const {catId, otherParam} = route.params;
-
+  useEffect(() => {
+    getPhrases();
+  }, []);
   const category = categories.find(cat => cat.id === catId);
   console.log('phsIds', category && category.phrasesIds);
-
+  console.log('phrases', phrases && phrases);
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">

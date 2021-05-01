@@ -1,2 +1,4 @@
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
+export const GET_PHRASES = 'GET_PHRASES';
+export const SET_PHRASES = 'SET_PHRASES';
