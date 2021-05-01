@@ -27,9 +27,10 @@ export default function ListItem({
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={item => {
+            onPress={() => {
               navigation.navigate('Learn', {
-                item: item,
+                catId: item.id,
+                otherParam: 'anything you want here',
               });
             }}>
             <View>
@@ -41,10 +42,10 @@ export default function ListItem({
               </Text>
             </View>
             <ActionButton
-              onPress={item => {
-                console.log('item', item);
+              onPress={() => {
                 navigation.navigate('Learn', {
-                  item: item,
+                  catId: item.id,
+                  otherParam: 'anything you want here',
                 });
               }}
               text={text}

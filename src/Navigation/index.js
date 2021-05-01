@@ -4,12 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text} from 'react-native';
 import HomeScreen from '../containers/Home';
 const Stack = createStackNavigator();
+import Learning from '../containers/Learning';
 
-export const LearnScreen = () => (
-  <View>
-    <Text>Learn</Text>
-  </View>
-);
 const HomeStack = () => {
   return (
     <NavigationContainer>
@@ -21,7 +17,7 @@ const HomeStack = () => {
           //   headerLeft: props => <Header />,
           // }}
         />
-        <Stack.Screen name="Learn" component={LearnScreen} />
+        <Stack.Screen name="Learn" component={Learning} />
       </Stack.Navigator>
     </NavigationContainer>
   );
