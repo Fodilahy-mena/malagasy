@@ -42,21 +42,19 @@ function Switcher() {
     />
   );
 }
-export default ({navigation, state, setCategories, categories}) => {
+import {LANGUAGE_NAMES} from '../data/dataUtils';
+export default ({navigation, state, getCategories, categories}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setCategories(dataCategories.categories));
-    // console.log(state);
+    getCategories();
   }, []);
-  console.log('cat', categories && categories.map(cat => cat.map(c => c.id)));
-  //   if (loading) {
-  //     return (
-  //       <SafeAreaView>
-  //         <ActivityIndicator size="large" />
-  //       </SafeAreaView>
-  //     );
-  //   }
+  // console.log('cat', categories && categories);
+  const getAllCategoriesNames = lang => {
+    console.log(categories && categories.map(cat => cat.id));
+  };
+
+  getAllCategoriesNames(LANGUAGE_NAMES.MG);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -97,6 +95,7 @@ export default ({navigation, state, setCategories, categories}) => {
             <SectionHeading text="Select a category:" />
           </View>
           <List
+            lang={LANGUAGE_NAMES.MG}
             data={categories}
             text={'Learn'}
             color="#06B6D4"

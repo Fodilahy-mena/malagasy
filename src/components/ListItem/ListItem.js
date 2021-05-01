@@ -18,12 +18,13 @@ export default function ListItem({
   iconName,
   iconType,
   color,
+  lang,
 }) {
   return (
     <SafeAreaView>
       <SectionList
         sections={[{data: data}]}
-        renderItem={({item}, index) => (
+        renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
             onPress={item => {
@@ -32,7 +33,12 @@ export default function ListItem({
               });
             }}>
             <View>
-              <Text style={styles.text}>{item.name}</Text>
+              <Text
+                numberOfLines={1}
+                ellipsizeMode={'tail'}
+                style={styles.text}>
+                {item.name[lang]}
+              </Text>
             </View>
             <ActionButton
               onPress={item => {
@@ -72,6 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#111827',
+    maxWidth: 249,
   },
   separator: {
     flex: 1,

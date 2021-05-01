@@ -9,11 +9,13 @@ export default function List({
   iconType,
   color,
   navigation,
+  lang,
 }) {
   return (
     <SafeAreaView>
       <View style={styles.list}>
         <ListItem
+          lang={lang}
           data={data}
           text={text}
           text={text}
