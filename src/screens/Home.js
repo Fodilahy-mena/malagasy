@@ -39,11 +39,12 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({navigation, state, getCategories, categories}) => {
+export default ({navigation, state, getCategories, categories, getPhrases}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     getCategories();
+    getPhrases();
   }, []);
 
   return (

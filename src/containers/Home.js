@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Home from '../screens/Home';
-import {getCategories} from '../actions';
+import {getCategories, getPhrases} from '../actions';
 
 function mapStateToProps(state) {
   return {
@@ -10,6 +10,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   getCategories,
+  getPhrases,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

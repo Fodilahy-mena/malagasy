@@ -10,7 +10,19 @@ import {
 } from 'react-native';
 
 export const Separator = () => <View style={styles.separator} />;
-
+export function VirtualizedView() {
+  return (
+    <SectionList
+      sections={[{data: data}]}
+      ListEmptyComponent={null}
+      keyExtractor={() => 'dummy'}
+      renderItem={null}
+      ListHeaderComponent={() => (
+        <React.Fragment>{props.children}</React.Fragment>
+      )}
+    />
+  );
+}
 export default function ListItem({
   navigation,
   data,

@@ -12,6 +12,7 @@ import {
 import List from '../components/List/List';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
+import Textarea from '../components/Textarea/Textarea';
 
 import ToolButton from '../components/ToolButton/ToolButton';
 import LanguageSwitcher from '../components/LanguageSwitcher/LanguageSwitcher';
@@ -38,21 +39,16 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({
-  route,
-  navigation,
-  state,
-  categories,
-  getPhrases,
-  phrases,
-}) => {
+export default ({route, navigation, state, categories, phrases}) => {
   const {catId, otherParam} = route.params;
-  useEffect(() => {
-    getPhrases();
-  }, []);
+
   const category = categories.find(cat => cat.id === catId);
-  console.log('phsIds', category && category.phrasesIds);
-  console.log('phrases', phrases && phrases);
+  const phrasesIds = category && category.phrasesIds;
+  const newPhrases =
+    phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
+  console.log('new phrases', newPhrases);
+  var randomPhrase = newPhrases[Math.floor(Math.random() * newPhrases.length)];
+  console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -81,15 +77,24 @@ export default ({
           <View style={styles.heading}>
             <SectionHeading text="The phrase: " />
           </View>
-          {/* <List
+          <View style={{marginBottom: 37}}>
+            <Textarea
+              editable={false}
+              phrase={randomPhrase.name[LANGUAGE_NAMES.EN]}
+            />
+          </View>
+          <View style={styles.heading}>
+            <SectionHeading text="Pick a solution: " />
+          </View>
+          <List
             lang={LANGUAGE_NAMES.MG}
-            data={categories}
-            text={'Learn'}
+            data={newPhrases}
+            text={'Pick'}
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
             navigation={navigation}
-          /> */}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
