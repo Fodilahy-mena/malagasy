@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
+import {SOLUTION_BUTTON_TEXT} from '../constants';
 import List from '../components/List/List';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
@@ -38,7 +39,8 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({route, navigation, state, categories, phrases}) => {
+export default ({route, navigation, categories, phrases, text}) => {
+  const dispatch = useDispatch();
   const {catId, otherParam} = route.params;
   const category = categories.find(cat => cat.id === catId);
   const phrasesIds = category && category.phrasesIds;
@@ -48,11 +50,20 @@ export default ({route, navigation, state, categories, phrases}) => {
   console.log('new phrases', newPhrases);
   var randomPhrase = newPhrases[Math.floor(Math.random() * newPhrases.length)];
   // console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
+  useEffect(() => {
+    dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
+  }, []);
 
-  const makeAction = item => {
-    console.log('item', item);
-    console.log('randph', randomPhrase);
+  const makeAction = (item, index) => {
+    if (item.id === randomPhrase.id) {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Correct'});
+    } else if (item.id !== randomPhrase.id) {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Wrong'});
+    } else {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
+    }
   };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -96,7 +107,7 @@ export default ({route, navigation, state, categories, phrases}) => {
           <List
             lang={LANGUAGE_NAMES.MG}
             data={newPhrases}
-            text={'Pick'}
+            text={text}
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"

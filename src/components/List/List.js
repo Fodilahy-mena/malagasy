@@ -18,7 +18,6 @@ export default function List({
           lang={lang}
           data={data}
           text={text}
-          text={text}
           color={color}
           iconType={iconType}
           iconName={iconName}

@@ -3,6 +3,7 @@ import {
   SET_CATEGORIES,
   GET_PHRASES,
   SET_PHRASES,
+  SOLUTION_BUTTON_TEXT,
 } from '../constants';
 
 import categoriesData from '../data/categories.json';
@@ -33,5 +34,12 @@ export function getPhrases() {
   return {
     type: GET_PHRASES,
     payload: phrasesData.phrases,
+  };
+}
+
+export function solutionButtonText(solutionButtonText) {
+  return {
+    type: SOLUTION_BUTTON_TEXT,
+    payload: solutionButtonText,
   };
 }

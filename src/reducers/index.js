@@ -4,6 +4,7 @@ import {
   SET_CATEGORIES,
   GET_PHRASES,
   SET_PHRASES,
+  SOLUTION_BUTTON_TEXT,
 } from '../constants';
 function categories(state = [], action) {
   switch (action.type) {
@@ -27,7 +28,16 @@ function phrases(state = [], action) {
   }
 }
 
+function solutionButtonText(state = '', action) {
+  switch (action.type) {
+    case SOLUTION_BUTTON_TEXT:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 export default combineReducers({
   categories,
   phrases,
+  solutionButtonText,
 });
