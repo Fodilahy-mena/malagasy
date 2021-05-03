@@ -47,6 +47,12 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
     getPhrases();
   }, []);
 
+  const makeAction = item => {
+    navigation.navigate('Learn', {
+      catId: item.id,
+      otherParam: 'anything you want here',
+    });
+  };
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -92,7 +98,7 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
-            navigation={navigation}
+            makeAction={makeAction}
           />
         </View>
       </KeyboardAvoidingView>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {action} from '@storybook/addon-actions';
 import {useDispatch} from 'react-redux';
 import {
@@ -8,7 +8,6 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-
 import List from '../components/List/List';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
@@ -41,14 +40,19 @@ function Switcher() {
 import {LANGUAGE_NAMES} from '../data/dataUtils';
 export default ({route, navigation, state, categories, phrases}) => {
   const {catId, otherParam} = route.params;
-
   const category = categories.find(cat => cat.id === catId);
   const phrasesIds = category && category.phrasesIds;
   const newPhrases =
-    phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
+    phrases &&
+    phrases.filter(phrase => phrasesIds.includes(phrase.id)).slice(0, 4);
   console.log('new phrases', newPhrases);
   var randomPhrase = newPhrases[Math.floor(Math.random() * newPhrases.length)];
-  console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
+  // console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
+
+  const makeAction = item => {
+    console.log('item', item);
+    console.log('randph', randomPhrase);
+  };
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -56,7 +60,10 @@ export default ({route, navigation, state, categories, phrases}) => {
           <View style={styles.header}>
             <ToolBar
               button={
-                <ToolButton onPress={action('clicked-add-button')}>
+                <ToolButton
+                  onPress={() => {
+                    navigation.navigate('Home');
+                  }}>
                   <BackIcon width={24} height={24} fill="#FFFFFF" />
                 </ToolButton>
               }
@@ -93,7 +100,7 @@ export default ({route, navigation, state, categories, phrases}) => {
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
-            navigation={navigation}
+            makeAction={makeAction}
           />
         </View>
       </KeyboardAvoidingView>

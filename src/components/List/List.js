@@ -8,7 +8,7 @@ export default function List({
   iconName,
   iconType,
   color,
-  navigation,
+  makeAction,
   lang,
 }) {
   return (
@@ -22,7 +22,7 @@ export default function List({
           color={color}
           iconType={iconType}
           iconName={iconName}
-          navigation={navigation}
+          makeAction={makeAction}
         />
       </View>
     </SafeAreaView>

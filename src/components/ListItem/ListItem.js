@@ -24,7 +24,7 @@ export function VirtualizedView() {
   );
 }
 export default function ListItem({
-  navigation,
+  makeAction,
   data,
   text,
   iconName,
@@ -39,12 +39,7 @@ export default function ListItem({
         renderItem={({item}) => (
           <TouchableOpacity
             style={styles.item}
-            onPress={() => {
-              navigation.navigate('Learn', {
-                catId: item.id,
-                otherParam: 'anything you want here',
-              });
-            }}>
+            onPress={() => makeAction(item)}>
             <View>
               <Text
                 numberOfLines={1}
@@ -54,12 +49,7 @@ export default function ListItem({
               </Text>
             </View>
             <ActionButton
-              onPress={() => {
-                navigation.navigate('Learn', {
-                  catId: item.id,
-                  otherParam: 'anything you want here',
-                });
-              }}
+              onPress={() => makeAction(item)}
               text={text}
               color={color}
               iconType={iconType}
