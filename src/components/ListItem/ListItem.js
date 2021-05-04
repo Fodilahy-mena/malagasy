@@ -40,7 +40,7 @@ export default function ListItem({
         onPress={() => makeAction(item, index)}>
         <View>
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.text}>
-            {item.name[lang]}
+            {lang ? item.name[lang] : item.name}
           </Text>
         </View>
         <ActionButton

@@ -33,5 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#E5E5E5',
+    maxHeight: 370,
+    marginBottom: 15,
   },
 });

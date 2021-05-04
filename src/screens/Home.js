@@ -100,6 +100,28 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
             iconName="arrow-right"
             makeAction={makeAction}
           />
+          <View style={styles.heading}>
+            <SectionHeading text="Seen phrases:" />
+          </View>
+          <List
+            data={[{id: 1, name: '35 words and phrases'}]}
+            text={'Learn'}
+            color="#06B6D4"
+            iconType="material-community"
+            iconName="arrow-right"
+            makeAction={makeAction}
+          />
+          <View style={styles.heading}>
+            <SectionHeading text="Learnt phrases:" />
+          </View>
+          <List
+            data={[{id: 2, name: '10 words and phrases'}]}
+            text={'Learn'}
+            color="#06B6D4"
+            iconType="material-community"
+            iconName="arrow-right"
+            makeAction={makeAction}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
