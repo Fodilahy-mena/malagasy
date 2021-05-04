@@ -38,9 +38,11 @@ function Switcher() {
     />
   );
 }
+
 import {LANGUAGE_NAMES} from '../data/dataUtils';
 export default ({route, navigation, categories, phrases, text}) => {
   const dispatch = useDispatch();
+  const [selectedId, setSelectedId] = useState('');
   const {catId, otherParam} = route.params;
   const category = categories.find(cat => cat.id === catId);
   const phrasesIds = category && category.phrasesIds;
@@ -55,12 +57,14 @@ export default ({route, navigation, categories, phrases, text}) => {
   }, []);
 
   const makeAction = (item, index) => {
+    item.isSelected = true;
+    console.log('item', item);
     if (item.id === randomPhrase.id) {
-      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Correct'});
+      setSelectedId(randomPhrase.id);
     } else if (item.id !== randomPhrase.id) {
-      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Wrong'});
+      setSelectedId('');
     } else {
-      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
+      setSelectedId('');
     }
   };
 
@@ -112,6 +116,7 @@ export default ({route, navigation, categories, phrases, text}) => {
             iconType="material-community"
             iconName="arrow-right"
             makeAction={makeAction}
+            selectedId={selectedId}
           />
         </View>
       </KeyboardAvoidingView>

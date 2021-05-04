@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import ActionButton from '../ActionButton/ActionButton';
 import {
   Text,
@@ -7,33 +7,22 @@ import {
   SafeAreaView,
   StyleSheet,
   SectionList,
-  VirtualizedList,
 } from 'react-native';
 
 export const Separator = () => <View style={styles.separator} />;
-export function VirtualizedView() {
-  return (
-    <SectionList
-      sections={[{data: data}]}
-      ListEmptyComponent={null}
-      keyExtractor={() => 'dummy'}
-      renderItem={null}
-      ListHeaderComponent={() => (
-        <React.Fragment>{props.children}</React.Fragment>
-      )}
-    />
-  );
-}
-export default function ListItem({
+const RenderDataItem = ({
+  item,
+  index,
   makeAction,
-  data,
   text,
   iconName,
   iconType,
   color,
   lang,
-}) {
-  const renderDataItem = ({item, index}) => {
+  selectedId,
+}) => {
+  console.log('mjj', selectedId);
+  return useMemo(() => {
     return (
       <TouchableOpacity
         style={styles.item}
@@ -45,19 +34,54 @@ export default function ListItem({
         </View>
         <ActionButton
           onPress={() => makeAction(item, index)}
-          text={text}
-          color={color}
+          text={
+            !item.isSelected && item.id === selectedId
+              ? 'Correct'
+              : item.isSelected && item.id !== selectedId
+              ? 'Wrong'
+              : text
+          }
+          color={
+            item.isSelected && item.id === selectedId
+              ? '#06D440'
+              : item.isSelected && item.id !== selectedId
+              ? '#D4068E'
+              : color
+          }
           iconType={iconType}
           iconName={iconName}
         />
       </TouchableOpacity>
     );
-  };
+  }, [selectedId]);
+};
+export default function ListItem({
+  makeAction,
+  data,
+  text,
+  iconName,
+  iconType,
+  color,
+  lang,
+  selectedId,
+}) {
   return (
     <SafeAreaView>
       <SectionList
         sections={[{data: data}]}
-        renderItem={renderDataItem}
+        renderItem={({item, index}) => (
+          <RenderDataItem
+            item={item}
+            index={index}
+            makeAction={makeAction}
+            text={text}
+            iconName={iconName}
+            iconType={iconType}
+            color={color}
+            lang={lang}
+            selectedId={selectedId}
+          />
+        )}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={() => <Separator />}
       />
