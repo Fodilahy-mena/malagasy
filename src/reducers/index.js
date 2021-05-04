@@ -1,5 +1,11 @@
 import {combineReducers} from 'redux';
-import {GET_CATEGORIES, SET_CATEGORIES} from '../constants';
+import {
+  GET_CATEGORIES,
+  SET_CATEGORIES,
+  GET_PHRASES,
+  SET_PHRASES,
+  SOLUTION_BUTTON_TEXT,
+} from '../constants';
 function categories(state = [], action) {
   switch (action.type) {
     case SET_CATEGORIES:
@@ -11,6 +17,27 @@ function categories(state = [], action) {
   }
 }
 
+function phrases(state = [], action) {
+  switch (action.type) {
+    case SET_PHRASES:
+      return [...state, action.payload];
+    case GET_PHRASES:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function solutionButtonText(state = '', action) {
+  switch (action.type) {
+    case SOLUTION_BUTTON_TEXT:
+      return action.payload;
+    default:
+      return state;
+  }
+}
 export default combineReducers({
   categories,
+  phrases,
+  solutionButtonText,
 });

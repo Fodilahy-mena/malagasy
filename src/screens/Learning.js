@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {action} from '@storybook/addon-actions';
 import {useDispatch} from 'react-redux';
 import {
+  Text,
   View,
   StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-
+import {SOLUTION_BUTTON_TEXT} from '../constants';
 import List from '../components/List/List';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
+import Textarea from '../components/Textarea/Textarea';
 
 import ToolButton from '../components/ToolButton/ToolButton';
 import LanguageSwitcher from '../components/LanguageSwitcher/LanguageSwitcher';
-import AddIcon from '../components/ToolButton/assets/add.svg';
-import CheckIcon from '../components/ToolButton/assets/check.svg';
-import CheckAllIcon from '../components/ToolButton/assets/check-all.svg';
+import BackIcon from '../components/ToolButton/assets/back.svg';
 import ModeIcon from '../components/ToolButton/assets/mode.svg';
 
 function Switcher() {
@@ -39,20 +39,31 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({navigation, state, getCategories, categories, getPhrases}) => {
+export default ({route, navigation, categories, phrases, text}) => {
   const dispatch = useDispatch();
-
+  const {catId, otherParam} = route.params;
+  const category = categories.find(cat => cat.id === catId);
+  const phrasesIds = category && category.phrasesIds;
+  const newPhrases =
+    phrases &&
+    phrases.filter(phrase => phrasesIds.includes(phrase.id)).slice(0, 4);
+  console.log('new phrases', newPhrases);
+  var randomPhrase = newPhrases[Math.floor(Math.random() * newPhrases.length)];
+  // console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
   useEffect(() => {
-    getCategories();
-    getPhrases();
+    dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
   }, []);
 
-  const makeAction = item => {
-    navigation.navigate('Learn', {
-      catId: item.id,
-      otherParam: 'anything you want here',
-    });
+  const makeAction = (item, index) => {
+    if (item.id === randomPhrase.id) {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Correct'});
+    } else if (item.id !== randomPhrase.id) {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Wrong'});
+    } else {
+      dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
+    }
   };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -60,26 +71,15 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
           <View style={styles.header}>
             <ToolBar
               button={
-                <ToolButton onPress={action('clicked-add-button')}>
-                  <AddIcon width={24} height={24} fill="#FFFFFF" />
+                <ToolButton
+                  onPress={() => {
+                    navigation.navigate('Home');
+                  }}>
+                  <BackIcon width={24} height={24} fill="#FFFFFF" />
                 </ToolButton>
               }
             />
             <ToolBar button={<Switcher />} />
-            <ToolBar
-              button={
-                <ToolButton onPress={action('clicked-add-button')}>
-                  <CheckIcon width={24} height={24} fill="#FFFFFF" />
-                </ToolButton>
-              }
-            />
-            <ToolBar
-              button={
-                <ToolButton onPress={action('clicked-add-button')}>
-                  <CheckAllIcon width={24} height={24} fill="#FFFFFF" />
-                </ToolButton>
-              }
-            />
             <ToolBar
               button={
                 <ToolButton onPress={action('clicked-add-button')}>
@@ -89,34 +89,25 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
             />
           </View>
           <View style={styles.heading}>
-            <SectionHeading text="Select a category:" />
+            <SectionHeading text="Category: " />
+            <Text>{category && category.name[LANGUAGE_NAMES.MG]}</Text>
+          </View>
+          <View style={styles.heading}>
+            <SectionHeading text="The phrase: " />
+          </View>
+          <View style={{marginBottom: 37}}>
+            <Textarea
+              editable={false}
+              phrase={randomPhrase.name[LANGUAGE_NAMES.EN]}
+            />
+          </View>
+          <View style={styles.heading}>
+            <SectionHeading text="Pick a solution: " />
           </View>
           <List
             lang={LANGUAGE_NAMES.MG}
-            data={categories}
-            text={'Learn'}
-            color="#06B6D4"
-            iconType="material-community"
-            iconName="arrow-right"
-            makeAction={makeAction}
-          />
-          <View style={styles.heading}>
-            <SectionHeading text="Seen phrases:" />
-          </View>
-          <List
-            data={[{id: 1, name: '35 words and phrases'}]}
-            text={'Learn'}
-            color="#06B6D4"
-            iconType="material-community"
-            iconName="arrow-right"
-            makeAction={makeAction}
-          />
-          <View style={styles.heading}>
-            <SectionHeading text="Learnt phrases:" />
-          </View>
-          <List
-            data={[{id: 2, name: '10 words and phrases'}]}
-            text={'Learn'}
+            data={newPhrases}
+            text={text}
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
@@ -135,5 +126,6 @@ const styles = StyleSheet.create({
   },
   heading: {
     paddingBottom: 15,
+    flexDirection: 'row',
   },
 });

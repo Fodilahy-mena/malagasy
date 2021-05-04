@@ -8,7 +8,7 @@ export default function List({
   iconName,
   iconType,
   color,
-  navigation,
+  makeAction,
   lang,
 }) {
   return (
@@ -18,11 +18,10 @@ export default function List({
           lang={lang}
           data={data}
           text={text}
-          text={text}
           color={color}
           iconType={iconType}
           iconName={iconName}
-          navigation={navigation}
+          makeAction={makeAction}
         />
       </View>
     </SafeAreaView>
@@ -34,5 +33,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#E5E5E5',
+    maxHeight: 370,
+    marginBottom: 15,
   },
 });

@@ -1,15 +1,11 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import HomeScreen from '../containers/Home';
 const Stack = createStackNavigator();
-
-export const LearnScreen = () => (
-  <View>
-    <Text>Learn</Text>
-  </View>
-);
+import Learning from '../containers/Learning';
+import {VirtualizedView} from '../components/List/List';
 const HomeStack = () => {
   return (
     <NavigationContainer>
@@ -21,7 +17,7 @@ const HomeStack = () => {
           //   headerLeft: props => <Header />,
           // }}
         />
-        <Stack.Screen name="Learn" component={LearnScreen} />
+        <Stack.Screen name="Learn" component={Learning} />
       </Stack.Navigator>
     </NavigationContainer>
   );
