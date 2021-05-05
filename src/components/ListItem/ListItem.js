@@ -35,17 +35,17 @@ const RenderDataItem = ({
         <ActionButton
           onPress={() => makeAction(item, index)}
           text={
-            !item.isSelected && item.id === selectedId
-              ? 'Correct'
-              : item.isSelected && item.id !== selectedId
+            item.isSelected === false && item.id !== selectedId
               ? 'Wrong'
+              : item.isSelected === true && item.id === selectedId
+              ? 'Correct'
               : text
           }
           color={
-            item.isSelected && item.id === selectedId
-              ? '#06D440'
-              : item.isSelected && item.id !== selectedId
+            item.isSelected === false && item.id !== selectedId
               ? '#D4068E'
+              : item.isSelected === true && item.id === selectedId
+              ? '#06D440'
               : color
           }
           iconType={iconType}

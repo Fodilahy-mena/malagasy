@@ -8,12 +8,12 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
 } from 'react-native';
-import {SOLUTION_BUTTON_TEXT} from '../constants';
+import {SET_RANDOM_PHRASE} from '../constants';
 import List from '../components/List/List';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import ToolBar from '../components/ToolBar/ToolBar';
 import Textarea from '../components/Textarea/Textarea';
-
+import NextButton from '../components/NextButton/NextButton';
 import ToolButton from '../components/ToolButton/ToolButton';
 import LanguageSwitcher from '../components/LanguageSwitcher/LanguageSwitcher';
 import BackIcon from '../components/ToolButton/assets/back.svg';
@@ -40,33 +40,76 @@ function Switcher() {
 }
 
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({route, navigation, categories, phrases, text}) => {
+export default ({
+  route,
+  navigation,
+  categories,
+  phrases,
+  getRandomPhrase,
+  randomPhrase,
+}) => {
   const dispatch = useDispatch();
   const [selectedId, setSelectedId] = useState('');
   const {catId, otherParam} = route.params;
   const category = categories.find(cat => cat.id === catId);
+  const [fromPhrasesLength, setFromPhrasesLength] = useState(0);
+  const [toPhrasesLength, setToPhrasesLength] = useState(4);
   const phrasesIds = category && category.phrasesIds;
-  const newPhrases =
-    phrases &&
-    phrases.filter(phrase => phrasesIds.includes(phrase.id)).slice(0, 4);
+  const [randomOptions, setRandomOptions] = useState([]);
+
+  let newPhrases =
+    phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
   console.log('new phrases', newPhrases);
-  var randomPhrase = newPhrases[Math.floor(Math.random() * newPhrases.length)];
-  // console.log('randPhrase', randomPhrase.name[LANGUAGE_NAMES.EN]);
+
+  // console.log(randomPhrase);
+
   useEffect(() => {
-    dispatch({type: SOLUTION_BUTTON_TEXT, payload: 'Pick'});
+    getRandomPhrase();
+    if (newPhrases) {
+      getRandomPhraseData(newPhrases, 3);
+    }
   }, []);
 
   const makeAction = (item, index) => {
-    item.isSelected = true;
-    console.log('item', item);
+    setSelectedId(randomPhrase.id);
     if (item.id === randomPhrase.id) {
-      setSelectedId(randomPhrase.id);
+      item.isSelected = true;
     } else if (item.id !== randomPhrase.id) {
-      setSelectedId('');
-    } else {
-      setSelectedId('');
+      item.isSelected = false;
     }
   };
+
+  function getRandomPhraseData(array, number = 1) {
+    const newRandomPhrase =
+      newPhrases[Math.floor(Math.random() * newPhrases.length)];
+    dispatch({
+      type: SET_RANDOM_PHRASE,
+      payload: newRandomPhrase,
+    });
+
+    const myRandomOptions = [newRandomPhrase].sort(() => {
+      return 0.5 - Math.random();
+    });
+
+    for (let i = 0; i < number; ) {
+      const random = Math.floor(Math.random() * array.length);
+      if (myRandomOptions.indexOf(array[random]) !== -1) {
+        continue;
+      }
+      myRandomOptions.push(array[random]);
+      i++;
+    }
+
+    setRandomOptions(myRandomOptions);
+  }
+
+  function nextRandomPhraseData() {
+    getRandomPhraseData(newPhrases, 3);
+    randomOptions.map(opt => {
+      delete opt.isSelected;
+      return opt;
+    });
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -102,7 +145,7 @@ export default ({route, navigation, categories, phrases, text}) => {
           <View style={{marginBottom: 37}}>
             <Textarea
               editable={false}
-              phrase={randomPhrase.name[LANGUAGE_NAMES.EN]}
+              phrase={randomPhrase.name && randomPhrase.name[LANGUAGE_NAMES.EN]}
             />
           </View>
           <View style={styles.heading}>
@@ -110,13 +153,19 @@ export default ({route, navigation, categories, phrases, text}) => {
           </View>
           <List
             lang={LANGUAGE_NAMES.MG}
-            data={newPhrases}
-            text={text}
+            data={randomOptions}
+            text="Pick"
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
             makeAction={makeAction}
             selectedId={selectedId}
+          />
+          <NextButton
+            isDisabled={false}
+            textColor="#FFFFFF"
+            text="Next"
+            onPress={nextRandomPhraseData}
           />
         </View>
       </KeyboardAvoidingView>

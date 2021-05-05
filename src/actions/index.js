@@ -3,7 +3,8 @@ import {
   SET_CATEGORIES,
   GET_PHRASES,
   SET_PHRASES,
-  SOLUTION_BUTTON_TEXT,
+  SET_RANDOM_PHRASE,
+  GET_RANDOM_PHRASE,
 } from '../constants';
 
 import categoriesData from '../data/categories.json';
@@ -37,9 +38,16 @@ export function getPhrases() {
   };
 }
 
-export function solutionButtonText(solutionButtonText) {
+export function setRandomPhrase(phrase) {
   return {
-    type: SOLUTION_BUTTON_TEXT,
-    payload: solutionButtonText,
+    type: SET_RANDOM_PHRASE,
+    payload: phrase,
+  };
+}
+
+export function getRandomPhrase() {
+  return {
+    type: GET_RANDOM_PHRASE,
+    payload: {},
   };
 }
