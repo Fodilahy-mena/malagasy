@@ -20,11 +20,12 @@ const RenderDataItem = ({
   color,
   lang,
   selectedId,
+  disableAllOptions,
 }) => {
-  console.log('mjj', selectedId);
   return useMemo(() => {
     return (
       <TouchableOpacity
+        disabled={disableAllOptions && disableAllOptions}
         style={styles.item}
         onPress={() => makeAction(item, index)}>
         <View>
@@ -37,19 +38,37 @@ const RenderDataItem = ({
           text={
             item.isSelected === false && item.id !== selectedId
               ? 'Wrong'
-              : item.isSelected === true && item.id === selectedId
+              : !item.isSelected && item.id === selectedId
               ? 'Correct'
+              : disableAllOptions === false
+              ? text
               : text
           }
           color={
             item.isSelected === false && item.id !== selectedId
               ? '#D4068E'
-              : item.isSelected === true && item.id === selectedId
+              : !item.isSelected && item.id === selectedId
               ? '#06D440'
               : color
           }
-          iconType={iconType}
-          iconName={iconName}
+          iconType={
+            item.isSelected === false && item.id !== selectedId
+              ? ''
+              : !item.isSelected && item.id === selectedId
+              ? 'octicon'
+              : disableAllOptions === false
+              ? iconType
+              : iconType
+          }
+          iconName={
+            item.isSelected === false && item.id !== selectedId
+              ? 'close'
+              : !item.isSelected && item.id === selectedId
+              ? 'check'
+              : disableAllOptions === false
+              ? iconName
+              : iconName
+          }
         />
       </TouchableOpacity>
     );
@@ -64,6 +83,7 @@ export default function ListItem({
   color,
   lang,
   selectedId,
+  disableAllOptions,
 }) {
   return (
     <SafeAreaView>
@@ -80,6 +100,7 @@ export default function ListItem({
             color={color}
             lang={lang}
             selectedId={selectedId}
+            disableAllOptions={disableAllOptions}
           />
         )}
         keyExtractor={item => item.id}
@@ -106,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: '#111827',
-    maxWidth: 249,
+    maxWidth: 320,
   },
   separator: {
     flex: 1,
