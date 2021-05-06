@@ -11,6 +11,7 @@ export default function List({
   makeAction,
   lang,
   selectedId,
+  disableAllOptions,
 }) {
   return (
     <SafeAreaView>
@@ -24,6 +25,7 @@ export default function List({
           iconName={iconName}
           makeAction={makeAction}
           selectedId={selectedId}
+          disableAllOptions={disableAllOptions}
         />
       </View>
     </SafeAreaView>
