@@ -52,16 +52,13 @@ export default ({
   const [selectedId, setSelectedId] = useState('');
   const {catId, otherParam} = route.params;
   const category = categories.find(cat => cat.id === catId);
-  const [fromPhrasesLength, setFromPhrasesLength] = useState(0);
-  const [toPhrasesLength, setToPhrasesLength] = useState(4);
   const phrasesIds = category && category.phrasesIds;
   const [randomOptions, setRandomOptions] = useState([]);
+  const [disableAllOptions, setDisableAllOptions] = useState(false);
+  const [haveIt, setHaveIt] = useState([]);
 
   let newPhrases =
     phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
-  console.log('new phrases', newPhrases);
-
-  // console.log(randomPhrase);
 
   useEffect(() => {
     getRandomPhrase();
@@ -70,8 +67,10 @@ export default ({
     }
   }, []);
 
-  const makeAction = (item, index) => {
+  const makeAction = item => {
+    console.log('rand', randomOptions);
     setSelectedId(randomPhrase.id);
+    setDisableAllOptions(true);
     if (item.id === randomPhrase.id) {
       item.isSelected = true;
     } else if (item.id !== randomPhrase.id) {
@@ -79,7 +78,22 @@ export default ({
     }
   };
 
+  // function generateUniqueRandom(phrasesLength) {
+  //   const randomNumber = Number((Math.random() * phrasesLength).toFixed());
+  //   if (!haveIt.includes(randomNumber)) {
+  //     haveIt.push(randomNumber);
+  //     return randomNumber;
+  //   } else {
+  //     if (haveIt.length < phrasesLength) {
+  //       return generateUniqueRandom(phrasesLength);
+  //     } else {
+  //       return false;
+  //     }
+  //   }
+  // }
+
   function getRandomPhraseData(array, number = 1) {
+    setDisableAllOptions(false);
     const newRandomPhrase =
       newPhrases[Math.floor(Math.random() * newPhrases.length)];
     dispatch({
@@ -87,9 +101,7 @@ export default ({
       payload: newRandomPhrase,
     });
 
-    const myRandomOptions = [newRandomPhrase].sort(() => {
-      return 0.5 - Math.random();
-    });
+    const myRandomOptions = [newRandomPhrase];
 
     for (let i = 0; i < number; ) {
       const random = Math.floor(Math.random() * array.length);
@@ -100,15 +112,20 @@ export default ({
       i++;
     }
 
-    setRandomOptions(myRandomOptions);
+    setRandomOptions(
+      myRandomOptions
+        .map(opt => {
+          delete opt.isSelected;
+          return opt;
+        })
+        .sort(() => {
+          return 0.5 - Math.random();
+        }),
+    );
   }
 
   function nextRandomPhraseData() {
     getRandomPhraseData(newPhrases, 3);
-    randomOptions.map(opt => {
-      delete opt.isSelected;
-      return opt;
-    });
   }
 
   return (
@@ -148,25 +165,36 @@ export default ({
               phrase={randomPhrase.name && randomPhrase.name[LANGUAGE_NAMES.EN]}
             />
           </View>
-          <View style={styles.heading}>
-            <SectionHeading text="Pick a solution: " />
-          </View>
-          <List
-            lang={LANGUAGE_NAMES.MG}
-            data={randomOptions}
-            text="Pick"
-            color="#06B6D4"
-            iconType="material-community"
-            iconName="arrow-right"
-            makeAction={makeAction}
-            selectedId={selectedId}
-          />
-          <NextButton
-            isDisabled={false}
-            textColor="#FFFFFF"
-            text="Next"
-            onPress={nextRandomPhraseData}
-          />
+          {randomPhrase !== false ? (
+            <View>
+              <View style={styles.heading}>
+                <SectionHeading text="Pick a solution: " />
+              </View>
+              <List
+                lang={LANGUAGE_NAMES.MG}
+                data={randomOptions}
+                text="Pick"
+                color="#06B6D4"
+                iconType="material-community"
+                iconName="arrow-right"
+                makeAction={makeAction}
+                selectedId={selectedId}
+                disableAllOptions={disableAllOptions}
+              />
+            </View>
+          ) : (
+            ''
+          )}
+          {disableAllOptions && (
+            <View style={{marginTop: 45}}>
+              <NextButton
+                isDisabled={false}
+                textColor="#FFFFFF"
+                text="Next"
+                onPress={nextRandomPhraseData}
+              />
+            </View>
+          )}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
