@@ -55,8 +55,13 @@ export default ({
   const phrasesIds = category && category.phrasesIds;
   const [randomOptions, setRandomOptions] = useState([]);
   const [disableAllOptions, setDisableAllOptions] = useState(false);
+  const [indexConter, setIndexCounter] = useState(0);
+
   let newPhrases =
-    phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
+    phrases &&
+    phrases
+      .filter(phrase => phrasesIds.includes(phrase.id))
+      .sort(() => Math.random() - 0.5);
 
   useEffect(() => {
     getRandomPhrase();
@@ -77,8 +82,10 @@ export default ({
 
   function getRandomPhraseData(array, number = 1) {
     setDisableAllOptions(false);
-    const newRandomPhrase =
-      newPhrases[Math.floor(Math.random() * newPhrases.length)];
+    setIndexCounter(indexConter + 1);
+    const newRandomPhrase = newPhrases.find(
+      (phrase, index) => index === indexConter,
+    );
     dispatch({
       type: SET_RANDOM_PHRASE,
       payload: newRandomPhrase,
@@ -110,7 +117,9 @@ export default ({
   function nextRandomPhraseData() {
     getRandomPhraseData(newPhrases, 3);
   }
-
+  function reshuffle() {
+    setIndexCounter(0);
+  }
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -120,6 +129,7 @@ export default ({
               button={
                 <ToolButton
                   onPress={() => {
+                    setIndexCounter(0);
                     navigation.navigate('Home');
                   }}>
                   <BackIcon width={24} height={24} fill="#FFFFFF" />
@@ -145,36 +155,46 @@ export default ({
           <View style={{marginBottom: 37}}>
             <Textarea
               editable={false}
-              phrase={randomPhrase.name && randomPhrase.name[LANGUAGE_NAMES.EN]}
+              phrase={
+                indexConter >= newPhrases.length
+                  ? 'You have answered all the questions in this category'
+                  : randomPhrase.name && randomPhrase.name[LANGUAGE_NAMES.EN]
+              }
             />
           </View>
-          <View>
-            <View style={styles.heading}>
-              <SectionHeading text="Pick a solution: " />
-            </View>
-            <List
-              lang={LANGUAGE_NAMES.MG}
-              data={randomOptions}
-              text="Pick"
-              color="#06B6D4"
-              iconType="material-community"
-              iconName="arrow-right"
-              makeAction={makeAction}
-              selectedId={selectedId}
-              disableAllOptions={disableAllOptions}
-            />
-          </View>
-
-          {disableAllOptions && (
-            <View style={{marginTop: 45}}>
-              <NextButton
-                isDisabled={false}
-                textColor="#FFFFFF"
-                text="Next"
-                onPress={nextRandomPhraseData}
+          {indexConter >= newPhrases.length == false && (
+            <View>
+              <View style={styles.heading}>
+                <SectionHeading text="Pick a solution: " />
+              </View>
+              <List
+                lang={LANGUAGE_NAMES.MG}
+                data={randomOptions}
+                text="Pick"
+                color="#06B6D4"
+                iconType="material-community"
+                iconName="arrow-right"
+                makeAction={makeAction}
+                selectedId={selectedId}
+                disableAllOptions={disableAllOptions}
               />
             </View>
           )}
+
+          {/* {disableAllOptions && ( */}
+          <View style={{marginTop: 45}}>
+            <NextButton
+              isDisabled={false}
+              textColor="#FFFFFF"
+              text={indexConter >= newPhrases.length ? 'Reshuffle' : 'Next'}
+              onPress={
+                indexConter >= newPhrases.length
+                  ? reshuffle
+                  : nextRandomPhraseData
+              }
+            />
+          </View>
+          {/* )} */}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
