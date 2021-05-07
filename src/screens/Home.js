@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {action} from '@storybook/addon-actions';
-import {useDispatch} from 'react-redux';
+
 import {
   View,
   StyleSheet,
@@ -39,9 +39,7 @@ function Switcher() {
   );
 }
 import {LANGUAGE_NAMES} from '../data/dataUtils';
-export default ({navigation, state, getCategories, categories, getPhrases}) => {
-  const dispatch = useDispatch();
-
+export default ({navigation, getCategories, categories, getPhrases}) => {
   useEffect(() => {
     getCategories();
     getPhrases();
@@ -92,7 +90,7 @@ export default ({navigation, state, getCategories, categories, getPhrases}) => {
             <SectionHeading text="Select a category:" />
           </View>
           <List
-            lang={LANGUAGE_NAMES.MG}
+            lang={LANGUAGE_NAMES.EN}
             data={categories}
             text={'Learn'}
             color="#06B6D4"

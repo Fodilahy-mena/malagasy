@@ -55,8 +55,6 @@ export default ({
   const phrasesIds = category && category.phrasesIds;
   const [randomOptions, setRandomOptions] = useState([]);
   const [disableAllOptions, setDisableAllOptions] = useState(false);
-  const [haveIt, setHaveIt] = useState([]);
-
   let newPhrases =
     phrases && phrases.filter(phrase => phrasesIds.includes(phrase.id));
 
@@ -68,7 +66,6 @@ export default ({
   }, []);
 
   const makeAction = item => {
-    console.log('rand', randomOptions);
     setSelectedId(randomPhrase.id);
     setDisableAllOptions(true);
     if (item.id === randomPhrase.id) {
@@ -77,20 +74,6 @@ export default ({
       item.isSelected = false;
     }
   };
-
-  // function generateUniqueRandom(phrasesLength) {
-  //   const randomNumber = Number((Math.random() * phrasesLength).toFixed());
-  //   if (!haveIt.includes(randomNumber)) {
-  //     haveIt.push(randomNumber);
-  //     return randomNumber;
-  //   } else {
-  //     if (haveIt.length < phrasesLength) {
-  //       return generateUniqueRandom(phrasesLength);
-  //     } else {
-  //       return false;
-  //     }
-  //   }
-  // }
 
   function getRandomPhraseData(array, number = 1) {
     setDisableAllOptions(false);
@@ -165,26 +148,23 @@ export default ({
               phrase={randomPhrase.name && randomPhrase.name[LANGUAGE_NAMES.EN]}
             />
           </View>
-          {randomPhrase !== false ? (
-            <View>
-              <View style={styles.heading}>
-                <SectionHeading text="Pick a solution: " />
-              </View>
-              <List
-                lang={LANGUAGE_NAMES.MG}
-                data={randomOptions}
-                text="Pick"
-                color="#06B6D4"
-                iconType="material-community"
-                iconName="arrow-right"
-                makeAction={makeAction}
-                selectedId={selectedId}
-                disableAllOptions={disableAllOptions}
-              />
+          <View>
+            <View style={styles.heading}>
+              <SectionHeading text="Pick a solution: " />
             </View>
-          ) : (
-            ''
-          )}
+            <List
+              lang={LANGUAGE_NAMES.MG}
+              data={randomOptions}
+              text="Pick"
+              color="#06B6D4"
+              iconType="material-community"
+              iconName="arrow-right"
+              makeAction={makeAction}
+              selectedId={selectedId}
+              disableAllOptions={disableAllOptions}
+            />
+          </View>
+
           {disableAllOptions && (
             <View style={{marginTop: 45}}>
               <NextButton
