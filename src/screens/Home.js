@@ -22,18 +22,20 @@ import CheckIcon from '../components/ToolButton/assets/check.svg';
 import CheckAllIcon from '../components/ToolButton/assets/check-all.svg';
 import ModeIcon from '../components/ToolButton/assets/mode.svg';
 
-function Switcher({getLanguageName, nativeLanguage}) {
+function Switcher({nativeLanguage}) {
   const dispatch = useDispatch();
-  useEffect(() => {
-    getLanguageName();
-  }, []);
-  console.log(nativeLanguage);
+
   const [firstLanguage, setFirstLanguage] = useState(true);
   function switchLanguage() {
     setFirstLanguage(!firstLanguage);
     dispatch({
       type: SET_LANGUAGE_NAME,
-      payload: firstLanguage === true ? LANGUAGE_NAMES.MG : LANGUAGE_NAMES.EN,
+      payload:
+        nativeLanguage === LANGUAGE_NAMES.MG
+          ? LANGUAGE_NAMES.EN
+          : nativeLanguage === LANGUAGE_NAMES.EN
+          ? LANGUAGE_NAMES.MG
+          : nativeLanguage,
     });
   }
 
@@ -56,10 +58,11 @@ export default ({
   getCategories,
   categories,
   getPhrases,
-  getLanguageName,
   nativeLanguage,
 }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch({type: SET_LANGUAGE_NAME, payload: LANGUAGE_NAMES.EN});
     getCategories();
     getPhrases();
   }, []);
@@ -73,8 +76,6 @@ export default ({
     });
   };
 
-  console.log('lang', nativeLanguage);
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -87,14 +88,7 @@ export default ({
                 </ToolButton>
               }
             />
-            <ToolBar
-              button={
-                <Switcher
-                  getLanguageName={getLanguageName}
-                  nativeLanguage={nativeLanguage}
-                />
-              }
-            />
+            <ToolBar button={<Switcher nativeLanguage={nativeLanguage} />} />
             <ToolBar
               button={
                 <ToolButton onPress={action('clicked-add-button')}>

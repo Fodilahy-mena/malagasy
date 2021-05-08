@@ -58,12 +58,12 @@ export function getRandomPhrase() {
   };
 }
 
-export function getLanguageName() {
-  return {
-    type: GET_LANGUAGE_NAME,
-    payload: LANGUAGE_NAMES.EN,
-  };
-}
+// export function getLanguageName() {
+//   return {
+//     type: GET_LANGUAGE_NAME,
+//     payload: LANGUAGE_NAMES.EN,
+//   };
+// }
 
 export function setLanguageName(language) {
   return {

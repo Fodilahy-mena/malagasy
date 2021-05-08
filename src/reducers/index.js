@@ -49,8 +49,6 @@ function randomPhrase(state = {}, action) {
 
 function nativeLanguage(state = '', action) {
   switch (action.type) {
-    case GET_LANGUAGE_NAME:
-      return action.payload;
     case SET_LANGUAGE_NAME:
       return action.payload;
     default:
