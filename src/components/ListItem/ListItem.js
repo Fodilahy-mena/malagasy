@@ -19,7 +19,7 @@ const RenderDataItem = ({
   iconType,
   color,
   lang,
-  selectedId,
+  randomPhraseId,
   disableAllOptions,
 }) => {
   return useMemo(() => {
@@ -36,34 +36,34 @@ const RenderDataItem = ({
         <ActionButton
           onPress={() => makeAction(item, index)}
           text={
-            item.isSelected === false && item.id !== selectedId
+            disableAllOptions === true && item.isSelected === false
               ? 'Wrong'
-              : !item.isSelected && item.id === selectedId
+              : disableAllOptions === true && item.id === randomPhraseId
               ? 'Correct'
               : disableAllOptions === false
               ? text
               : text
           }
           color={
-            item.isSelected === false && item.id !== selectedId
+            disableAllOptions === true && item.isSelected === false
               ? '#D4068E'
-              : !item.isSelected && item.id === selectedId
+              : disableAllOptions === true && item.id === randomPhraseId
               ? '#06D440'
               : color
           }
           iconType={
-            item.isSelected === false && item.id !== selectedId
+            disableAllOptions === true && item.isSelected === false
               ? ''
-              : !item.isSelected && item.id === selectedId
+              : disableAllOptions === true && item.id === randomPhraseId
               ? 'octicon'
               : disableAllOptions === false
               ? iconType
               : iconType
           }
           iconName={
-            item.isSelected === false && item.id !== selectedId
+            disableAllOptions === true && item.isSelected === false
               ? 'close'
-              : !item.isSelected && item.id === selectedId
+              : disableAllOptions === true && item.id === randomPhraseId
               ? 'check'
               : disableAllOptions === false
               ? iconName
@@ -72,7 +72,7 @@ const RenderDataItem = ({
         />
       </TouchableOpacity>
     );
-  }, [selectedId]);
+  }, [randomPhraseId]);
 };
 export default function ListItem({
   makeAction,
@@ -82,7 +82,7 @@ export default function ListItem({
   iconType,
   color,
   lang,
-  selectedId,
+  randomPhraseId,
   disableAllOptions,
 }) {
   return (
@@ -99,7 +99,7 @@ export default function ListItem({
             iconType={iconType}
             color={color}
             lang={lang}
-            selectedId={selectedId}
+            randomPhraseId={randomPhraseId}
             disableAllOptions={disableAllOptions}
           />
         )}
