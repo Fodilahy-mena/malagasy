@@ -1,4 +1,6 @@
 import {combineReducers} from 'redux';
+// import all of constat case name for the swich
+// in reducers
 import {
   GET_CATEGORIES,
   SET_CATEGORIES,
@@ -7,6 +9,7 @@ import {
   SET_RANDOM_PHRASE,
   GET_RANDOM_PHRASE,
 } from '../constants';
+// categories reducer
 function categories(state = [], action) {
   switch (action.type) {
     case SET_CATEGORIES:
@@ -18,6 +21,7 @@ function categories(state = [], action) {
   }
 }
 
+// phrases reducer
 function phrases(state = [], action) {
   switch (action.type) {
     case SET_PHRASES:
@@ -29,6 +33,7 @@ function phrases(state = [], action) {
   }
 }
 
+// random phrase reducer
 function randomPhrase(state = {}, action) {
   switch (action.type) {
     case SET_RANDOM_PHRASE:
@@ -39,6 +44,8 @@ function randomPhrase(state = {}, action) {
       return state;
   }
 }
+
+// combine all of the reducers together
 export default combineReducers({
   categories,
   phrases,
