@@ -8,6 +8,8 @@ import {
   SET_PHRASES,
   SET_RANDOM_PHRASE,
   GET_RANDOM_PHRASE,
+  SET_LANGUAGE_NAME,
+  GET_LANGUAGE_NAME,
 } from '../constants';
 // categories reducer
 function categories(state = [], action) {
@@ -45,9 +47,21 @@ function randomPhrase(state = {}, action) {
   }
 }
 
+function nativeLanguage(state = '', action) {
+  switch (action.type) {
+    case GET_LANGUAGE_NAME:
+      return action.payload;
+    case SET_LANGUAGE_NAME:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 // combine all of the reducers together
 export default combineReducers({
   categories,
   phrases,
   randomPhrase,
+  nativeLanguage,
 });

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {action} from '@storybook/addon-actions';
 import {useDispatch} from 'react-redux';
 import {
