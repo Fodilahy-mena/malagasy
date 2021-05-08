@@ -10,7 +10,7 @@ export default function List({
   color,
   makeAction,
   lang,
-  selectedId,
+  randomPhraseId,
   disableAllOptions,
 }) {
   return (
@@ -24,7 +24,7 @@ export default function List({
           iconType={iconType}
           iconName={iconName}
           makeAction={makeAction}
-          selectedId={selectedId}
+          randomPhraseId={randomPhraseId}
           disableAllOptions={disableAllOptions}
         />
       </View>
