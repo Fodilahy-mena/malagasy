@@ -6,10 +6,14 @@ import {
   SET_PHRASES,
   SET_RANDOM_PHRASE,
   GET_RANDOM_PHRASE,
+  GET_LANGUAGE_NAME,
+  SET_LANGUAGE_NAME,
 } from '../constants';
 // usable data
 import categoriesData from '../data/categories.json';
 import phrasesData from '../data/phrases.json';
+
+import {LANGUAGE_NAMES} from '../data/dataUtils';
 
 // categories actions
 export function setCategories(categories) {
@@ -51,5 +55,19 @@ export function getRandomPhrase() {
   return {
     type: GET_RANDOM_PHRASE,
     payload: {},
+  };
+}
+
+// export function getLanguageName() {
+//   return {
+//     type: GET_LANGUAGE_NAME,
+//     payload: LANGUAGE_NAMES.EN,
+//   };
+// }
+
+export function setLanguageName(language) {
+  return {
+    type: SET_LANGUAGE_NAME,
+    payload: language,
   };
 }

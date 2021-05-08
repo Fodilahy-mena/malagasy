@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {action} from '@storybook/addon-actions';
 import {LANGUAGE_NAMES} from '../data/dataUtils';
+import {SET_LANGUAGE_NAME} from '../constants';
 
 import {
   View,
@@ -20,10 +22,21 @@ import CheckIcon from '../components/ToolButton/assets/check.svg';
 import CheckAllIcon from '../components/ToolButton/assets/check-all.svg';
 import ModeIcon from '../components/ToolButton/assets/mode.svg';
 
-function Switcher() {
+function Switcher({nativeLanguage}) {
+  const dispatch = useDispatch();
+
   const [firstLanguage, setFirstLanguage] = useState(true);
   function switchLanguage() {
     setFirstLanguage(!firstLanguage);
+    dispatch({
+      type: SET_LANGUAGE_NAME,
+      payload:
+        nativeLanguage === LANGUAGE_NAMES.MG
+          ? LANGUAGE_NAMES.EN
+          : nativeLanguage === LANGUAGE_NAMES.EN
+          ? LANGUAGE_NAMES.MG
+          : nativeLanguage,
+    });
   }
 
   return (
@@ -40,8 +53,16 @@ function Switcher() {
   );
 }
 
-export default ({navigation, getCategories, categories, getPhrases}) => {
+export default ({
+  navigation,
+  getCategories,
+  categories,
+  getPhrases,
+  nativeLanguage,
+}) => {
+  const dispatch = useDispatch();
   useEffect(() => {
+    dispatch({type: SET_LANGUAGE_NAME, payload: LANGUAGE_NAMES.EN});
     getCategories();
     getPhrases();
   }, []);
@@ -54,6 +75,7 @@ export default ({navigation, getCategories, categories, getPhrases}) => {
       otherParam: 'anything you want here',
     });
   };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
@@ -66,7 +88,7 @@ export default ({navigation, getCategories, categories, getPhrases}) => {
                 </ToolButton>
               }
             />
-            <ToolBar button={<Switcher />} />
+            <ToolBar button={<Switcher nativeLanguage={nativeLanguage} />} />
             <ToolBar
               button={
                 <ToolButton onPress={action('clicked-add-button')}>
@@ -93,7 +115,7 @@ export default ({navigation, getCategories, categories, getPhrases}) => {
             <SectionHeading text="Select a category:" />
           </View>
           <List
-            lang={LANGUAGE_NAMES.EN}
+            lang={nativeLanguage}
             data={categories}
             text={'Learn'}
             color="#06B6D4"
@@ -110,7 +132,7 @@ export default ({navigation, getCategories, categories, getPhrases}) => {
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
-            makeAction={makeAction}
+            makeAction={() => {}}
           />
           <View style={styles.heading}>
             <SectionHeading text="Learnt phrases:" />
@@ -121,7 +143,7 @@ export default ({navigation, getCategories, categories, getPhrases}) => {
             color="#06B6D4"
             iconType="material-community"
             iconName="arrow-right"
-            makeAction={makeAction}
+            makeAction={() => {}}
           />
         </View>
       </KeyboardAvoidingView>
