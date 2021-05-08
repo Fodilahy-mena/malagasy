@@ -4,7 +4,8 @@ import {
   SET_CATEGORIES,
   GET_PHRASES,
   SET_PHRASES,
-  SOLUTION_BUTTON_TEXT,
+  SET_RANDOM_PHRASE,
+  GET_RANDOM_PHRASE,
 } from '../constants';
 function categories(state = [], action) {
   switch (action.type) {
@@ -28,9 +29,11 @@ function phrases(state = [], action) {
   }
 }
 
-function solutionButtonText(state = '', action) {
+function randomPhrase(state = {}, action) {
   switch (action.type) {
-    case SOLUTION_BUTTON_TEXT:
+    case SET_RANDOM_PHRASE:
+      return action.payload;
+    case GET_RANDOM_PHRASE:
       return action.payload;
     default:
       return state;
@@ -39,5 +42,5 @@ function solutionButtonText(state = '', action) {
 export default combineReducers({
   categories,
   phrases,
-  solutionButtonText,
+  randomPhrase,
 });

@@ -10,6 +10,8 @@ export default function List({
   color,
   makeAction,
   lang,
+  randomPhraseId,
+  disableAllOptions,
 }) {
   return (
     <SafeAreaView>
@@ -22,6 +24,8 @@ export default function List({
           iconType={iconType}
           iconName={iconName}
           makeAction={makeAction}
+          randomPhraseId={randomPhraseId}
+          disableAllOptions={disableAllOptions}
         />
       </View>
     </SafeAreaView>

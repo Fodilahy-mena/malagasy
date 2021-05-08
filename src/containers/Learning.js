@@ -1,17 +1,17 @@
 import {connect} from 'react-redux';
 import Learning from '../screens/Learning';
-import {getPhrases, solutionButtonText} from '../actions';
+import {getPhrases, getRandomPhrase} from '../actions';
 function mapStateToProps(state) {
   return {
     state,
     categories: state.categories,
     phrases: state.phrases,
-    text: state.solutionButtonText,
+    randomPhrase: state.randomPhrase,
   };
 }
 const mapDispatchToProps = {
   getPhrases,
-  solutionButtonText,
+  getRandomPhrase,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Learning);
