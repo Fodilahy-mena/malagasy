@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {action} from '@storybook/addon-actions';
+import {LANGUAGE_NAMES} from '../data/dataUtils';
 
 import {
   View,
@@ -38,13 +39,15 @@ function Switcher() {
     />
   );
 }
-import {LANGUAGE_NAMES} from '../data/dataUtils';
+
 export default ({navigation, getCategories, categories, getPhrases}) => {
   useEffect(() => {
     getCategories();
     getPhrases();
   }, []);
 
+  // a function on each items that navigates to Learn screen
+  // set and pass category parameter which is the category id
   const makeAction = item => {
     navigation.navigate('Learn', {
       catId: item.id,
