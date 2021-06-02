@@ -4,6 +4,7 @@ import {TouchableHighlight, StyleSheet, Text, View} from 'react-native';
 import {Icon} from 'react-native-elements';
 
 export default function LanguageSwitcher({
+  //consider using defaults for some of these
   onPress,
   color,
   iconType,
@@ -43,6 +44,7 @@ LanguageSwitcher.defaultProps = {
 
 LanguageSwitcher.propTypes = {
   onPress: PropTypes.func,
+  // if you use prop types it should be for all components
 };
 
 const styles = StyleSheet.create({

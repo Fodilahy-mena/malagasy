@@ -9,6 +9,7 @@ import {
   SectionList,
 } from 'react-native';
 
+// ListItem is only a single element in the list, not the whole list. Use RenderDatsItem as ListItem and ListItem as List.
 export const Separator = () => <View style={styles.separator} />;
 const RenderDataItem = ({
   item,
@@ -36,6 +37,7 @@ const RenderDataItem = ({
         <ActionButton
           onPress={() => makeAction(item, index)}
           text={
+            // All calculations for the action button props should be happening in the parent of this component. Think about how to simplify it as there is lots of duplicated code here.
             disableAllOptions === true && item.isSelected === false
               ? 'Wrong'
               : disableAllOptions === true && item.id === randomPhraseId

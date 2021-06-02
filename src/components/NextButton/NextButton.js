@@ -21,7 +21,7 @@ Button.defaultProps = {
 Button.propTypes = {
   onPress: PropTypes.func,
 };
-
+// Lots of duplication
 const styles = StyleSheet.create({
   button: {
     fontFamily: 'Inter',

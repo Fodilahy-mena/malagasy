@@ -25,6 +25,7 @@ ToolButton.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    // why font-family?
     fontFamily: 'Inter',
     fontStyle: 'normal',
     fontWeight: '600',
