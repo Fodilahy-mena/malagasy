@@ -36,6 +36,7 @@ ActionButton.propTypes = {
   onPress: PropTypes.func,
 };
 
+// Icon too big
 const styles = StyleSheet.create({
   container: {
     fontFamily: 'Inter',

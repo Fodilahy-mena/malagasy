@@ -13,6 +13,7 @@ export default function List({
   randomPhraseId,
   disableAllOptions,
 }) {
+  // Right now this is useless
   return (
     <SafeAreaView>
       <View style={styles.list}>

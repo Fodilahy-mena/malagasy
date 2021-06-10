@@ -16,6 +16,7 @@ function categories(state = [], action) {
   switch (action.type) {
     case SET_CATEGORIES:
       return [...state, action.payload];
+    //This action does not do anything. The nameis misleading as it sets categories instead of getting them
     case GET_CATEGORIES:
       return action.payload;
     default:
@@ -28,6 +29,7 @@ function phrases(state = [], action) {
   switch (action.type) {
     case SET_PHRASES:
       return [...state, action.payload];
+      //This action does not do anything. The nameis misleading as it sets categories instead of getting them
     case GET_PHRASES:
       return action.payload;
     default:
@@ -40,6 +42,7 @@ function randomPhrase(state = {}, action) {
   switch (action.type) {
     case SET_RANDOM_PHRASE:
       return action.payload;
+      //This action does not do anything. The nameis misleading as it sets categories instead of getting them
     case GET_RANDOM_PHRASE:
       return action.payload;
     default:
